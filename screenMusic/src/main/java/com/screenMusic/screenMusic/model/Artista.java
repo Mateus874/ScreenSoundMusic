@@ -1,16 +1,20 @@
 package com.screenMusic.screenMusic.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 @Entity
 public class Artista {
     //Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeArtista;
     private String genero;
     private String local;
+    private TipoArtista tipo;
+    @OneToMany (mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Musica> musicas;
 
     //Construtor padrao
@@ -26,6 +30,10 @@ public class Artista {
     //Construtor vázio
     public Artista(Long id) {
         this.id = id;
+    }
+
+    public Artista() {
+
     }
 
 
@@ -45,6 +53,7 @@ public class Artista {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
 
     public String getLocal() {
         return local;

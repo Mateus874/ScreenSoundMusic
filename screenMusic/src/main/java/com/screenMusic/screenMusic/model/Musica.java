@@ -1,17 +1,19 @@
 package com.screenMusic.screenMusic.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-    //Atributos
+//Atributos
 @Entity
 @Table(name = "")
 public class Musica {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     private String nomeMusica;
     private String generoMusica;
     private int minutos;
+
     @ManyToOne
+    @JoinColumn(name = "artista_id")
     private Artista artista;
 
     //Construtores
@@ -25,7 +27,8 @@ public class Musica {
         this.generoMusica = generoMusica;
     }
 
-
+    public Musica(String nome) {
+    }
 
 
     //Getter e setter
@@ -59,5 +62,16 @@ public class Musica {
 
     public void setArtista(Artista artista) {
         this.artista = artista;
+    }
+
+    @Override
+    public String toString() {
+        return "Musica{" +
+                "id=" + id +
+                ", nomeMusica='" + nomeMusica + '\'' +
+                ", generoMusica='" + generoMusica + '\'' +
+                ", minutos=" + minutos +
+                ", artista=" + artista.getNome() +
+                '}';
     }
 }
